@@ -1,5 +1,6 @@
 package org.lessons.java.javaBank;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class Bank {
@@ -22,19 +23,17 @@ public class Bank {
             switch (choice) {
                 case 1:
                     System.out.println("Inserisci l'importo da versare: ");
-                    System.out.print(account.deposit(Double.parseDouble(scanner.nextLine())));
+                    System.out.print(account.deposit(new BigDecimal(scanner.nextLine())));
                     account.printAccountInfo();
                     break;
                 case 2:
                     System.out.println("Inserisci l'importo da prelevare: ");
-                    System.out.print(account.withdrawal(Double.parseDouble(scanner.nextLine())));
+                    System.out.print(account.withdrawal(new BigDecimal(scanner.nextLine())));
                     account.printAccountInfo();
                     break;
             }
 
         } while (choice != 0);
-
-
 
         scanner.close();
     }
