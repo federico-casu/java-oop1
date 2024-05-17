@@ -1,5 +1,6 @@
 package org.lessons.java.javaShop;
 
+import java.math.BigDecimal;
 import java.util.Random;
 
 public class Prodotto {
@@ -8,14 +9,14 @@ public class Prodotto {
     private int code;
     private String name;
     private String description;
-    private double price;
+    private BigDecimal price;
     private int vat;
 
     // COSTRUTTORI
     Prodotto (String name, double price, int vat) {
         this.code = new Random().nextInt(999999);
         this.name = name;
-        this.price = price;
+        this.price = new BigDecimal(price);
         this.vat = vat;
     }
 
@@ -42,11 +43,11 @@ public class Prodotto {
     }
 
     // price
-    public double getBasePrice() {
+    public BigDecimal getBasePrice() {
         return this.price;
     }
     public void setPrice(double price) {
-        this.price = price;
+        this.price = new BigDecimal(price);
     }
 
     // vat
@@ -57,8 +58,9 @@ public class Prodotto {
         this.vat = vat;
     }
 
-    public double getTotalPrice() {
-        return (this.price + (this.price * ((double)this.vat / 100)));
+    public BigDecimal getTotalPrice() {
+        return this.price.add(this.price.multiply(new BigDecimal(this.vat).divide(new BigDecimal("100"))));
+//        return (this.price + (this.price * ((double)this.vat / 100)));
     }
 
     public String getProductName() {
@@ -70,8 +72,8 @@ public class Prodotto {
         System.out.print("Codice: " + this.getCode() + "\n");
         System.out.print("Nome: " + this.getName() + "\n");
         System.out.print("Descrizione: " + this.getDescription() + "\n");
-        System.out.print("Prezzo base: " + this.getBasePrice() + "\n");
-        System.out.print("Prezzo: " + this.getTotalPrice() + "\n");
+        System.out.print("Prezzo base: " + String.format("%.2f", this.getBasePrice()) + "\n");
+        System.out.print("Prezzo: " + String.format("%.2f", this.getTotalPrice()) + "\n");
         System.out.print("iva: " + this.getVat() + "\n");
         System.out.print("Nome prodotto: " + this.getProductName() + "\n");
     }
